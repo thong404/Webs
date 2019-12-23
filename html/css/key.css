@@ -1,0 +1,412 @@
+	/*  "When it come to persuation 
+		if you argument you are losing!".
+	"Less is more".
+	"Simple is perfect".
+	"And nothing imposible".
+	I'm Thong and i always deeply believe in these quote.
+*/
+
+body{
+	font: 15px/1.5 Arial, Helvatica, sans-serif;
+	padding: 0;
+	margin: 0;	
+	background-color: rgb(90,90,90);
+}
+* {box-sizing: border-box;}
+	/*Global*/
+.container{
+	width: 90%;
+	margin: auto;
+}
+ul{
+	margin: 0;
+	padding: 0;
+}
+	/*HEADER*/
+header{
+	background-color: #35424a;
+	padding-top: 30px;
+	min-height: 70px;
+	border-bottom: #e8491d 3px solid;
+}
+header a{
+	color: #fff;
+	text-decoration: none;
+	font-size: 16px;
+}
+header ul{
+	display: flex;
+	justify-content: space-between;
+	list-style: none;
+	margin-top: 10px;
+}
+header .current a{	
+	color: #e8491d;
+}
+header a:hover{
+	color: #e8491d;
+	font-weight: bold;
+}
+.list{
+	position: relative;
+}
+.node_list{
+	position: absolute;
+	display: none;
+	z-index: 100;
+	background: rgba(0, 0, 0, 0.5);   
+	color: rgba(255,255,255, 0.5);
+	border-radius: 10px;
+}
+
+.node_list a{
+	display: block;
+	width: 150px;
+	text-align: center;
+	padding: 5px;
+	color: white;
+}	
+.list:hover .node_list{
+	display: block;
+}
+.node_list a:hover{
+	color: rgb(0,191,255);
+	transition: 0.5s;
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;
+}
+@media(max-width: 450px){
+.node_list a{
+	text-align: center;
+	width: 85px;
+}	
+}
+
+.menu-item{
+	transform: scale(1);
+	transition: 0.3s;
+	display: block;
+}
+.menu-item.hide-item
+{
+	transform: scale(0);
+}
+ .fa.fa-home{
+	font-size: 30px;
+}
+.search_box{
+	position: absolute;
+	right: 15%;
+	width: 40%;
+	visibility: hidden;
+	opacity: 0;
+}
+.search_box:focus{
+	background-color: #ccc;
+}
+.search_box.active
+{
+	opacity: 1;
+	visibility: visible;
+	transition-delay: 0.3s;
+	transition: 0.7s;
+	border-radius: 10px;
+	padding: 1px 0;
+}
+.container input[type=text] {
+	padding-left: 20px;
+	font-size: 16px;
+}
+/*body*/  
+#key{
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	height: auto;
+	height: 100%;
+	min-height: 550px;
+}
+@media(min-height: 730px){
+	#key{
+		min-height: 600px;
+	}
+}
+@media(min-height: 750px){
+	#key{
+		min-height: 610px;
+	}
+}
+@media(min-height: 768px){
+	#key{
+		min-height: 650px;
+	}
+}
+@media(min-height: 800px){
+	#key{
+		min-height: 656px;
+	}
+}
+@media(min-height: 1024px){
+	#key{
+		min-height: 890px;
+	}
+}
+@media(min-height: 1366px){
+	#key{
+		min-height: 1235px;
+	}
+}
+
+.open_button{
+	color: black;
+	background-color: #e8491d;
+	width: 200px;
+	margin: 20px;
+	padding: 10px;
+	font-size: 20px;
+	border-radius: 20px;
+	border: 1.1px solid black;
+}
+.open_button:hover{
+	border: 5px #000 solid;
+	background-color: rgb(255,0,0);
+	transition: 1s;
+	font-weight: bold;
+	color: white;
+	border-radius: 25px;
+}
+.login{
+	display: none;
+	border: 1.1px solid black;
+	z-index: 10;
+	border-radius: 10px;
+	text-align: left;
+}
+.login:hover{
+	background: rgba(0, 0, 0, 0.5);
+	border: 3px solid black;
+	transition: 1.5s;
+	border-radius: 20px;
+	color: rgba(255,255,255, 0.5);
+}
+.login h1{
+	text-align: center;
+}
+.login b{
+	display: block;
+	font-size: 18px;
+	padding-left: 10px;
+}
+
+.form_login input[type=text], .form_login input[type=password] {
+  width: 90%;
+  padding: 15px;
+  margin: 5px 10px 22px 15px;
+  border: none;
+  background: #f1f1f1;
+  border-radius: 10px;
+  text-align: center;
+}
+.form_login input[type=text]:focus, .form_login input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+.login .button_login{
+	font-size: 18px;
+	text-align: center;
+	margin-left: 40%;
+	border-radius: 5px;
+	border: 1.1px solid black;
+	background-color: white;
+	color: black;
+}
+.login .button_login:hover{
+	font-weight: bold;
+	color:rgb(255,0,0);
+	background-color: black;
+	transition: 0.5s;
+}
+.form_login .button_login{
+	padding: 5px 10px;
+}
+.login .button_close_1{
+	background-color: red;
+	color: black;
+	margin:0;
+	padding: 5px;
+	font-size: 16px;
+	border-radius: 5px;
+	border: 1.1px solid black;
+}
+.login .button_close_1:hover{
+	border: 3px #000 solid;
+	background-color: rgb(255,0,0);
+	transition: 1s;
+	font-weight: bold;
+	color: white;
+	border-radius: 10px;
+}
+@media(min-width: 768px){
+	#login{
+		text-align: center;
+	}
+	.login{
+		width: 60%;
+		margin: auto;
+	}
+	#register{
+		text-align: center;
+	}
+	.register{
+		width: 60%;
+		margin: auto;
+	}
+}
+@media(min-width: 1200px){
+	#login{
+		text-align: center;
+	}
+	.login{
+		width: 50%;
+		margin: auto;
+		position: relative;
+	}
+	.login .button_login{
+		margin-left: 45%;
+	}
+	#register{
+		text-align: center;
+	}
+	.register{
+		width: 50%;
+		margin: auto;
+	}
+	.form_login input[type=text], .form_login input[type=password]{
+		width: 60%;
+		margin-left: 20%;
+	}
+	.login b{
+	padding-left: 40px;
+	}
+	.login .button_close_1{
+	position: absolute;
+	right: 0;
+	
+	}
+
+}
+
+/**/
+
+.register{
+	display: none;
+	border: 1.1px solid black;
+	z-index: 10;
+	border-radius: 10px;
+	text-align: left;
+	margin-bottom: 40px;
+}
+.register:hover{
+	background: rgba(0, 0, 0, 0.5);
+	border: 3px solid black;
+	transition: 1.5s;
+	border-radius: 20px;
+	color: rgba(255,255,255, 0.5);
+}
+.register h1{
+	text-align: center;
+}
+.register b{
+	font-size: 18px;
+	display: block;
+	padding-left: 10px;
+}
+
+.form_register input[type=text], .form_register input[type=password] {
+  width: 90%;
+  padding: 15px;
+  margin: 5px 10px 22px 15px;
+  border: none;
+  background: #f1f1f1;
+  border-radius: 10px;
+  text-align: center;
+}
+.form_register input[type=text]:focus, .form_register input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+.register .button_register{
+	font-size: 18px;
+	text-align: center;
+	margin-left: 40%;
+}
+.register .button_register:hover{
+	font-weight: bold;
+	color:rgb(255,0,0);
+	background-color: black;
+	transition: 0.5s;
+}
+.register .button_close_2{
+	background-color: red;
+	color: black;
+	margin:0;
+	padding: 5px;
+	font-size: 16px;
+	border-radius: 5px;
+	border: 1.1px solid black;
+}
+.register .button_close_2:hover{
+	border: 3px #000 solid;
+	background-color: rgb(255,0,0);
+	transition: 1s;
+	font-weight: bold;
+	color: white;
+	border-radius: 10px;
+}
+.register .button_register{
+	font-size: 18px;
+	text-align: center;
+	margin-left: 40%;
+	border-radius: 5px;
+	border: 1.1px solid black;
+	background-color: white;
+	color: black;
+}
+.form_register .button_register{
+	padding: 5px 10px;
+}
+@media(min-width: 1200px){
+	.form_register input[type=text], .form_register input[type=password]{
+		width: 60%;
+		margin-left: 20%;
+	}
+	.form_register{
+		position: relative;
+	}
+	.register .button_register{
+		text-align: center;
+		margin-left: 43%;
+	}
+	.register b{
+	padding-left: 40px;
+	}
+	.register .button_close_2{
+	position: absolute;
+	right: 0;
+	}
+}
+
+
+
+footer{
+	text-align: center;
+	background-color: rgb(255,0,0);
+	color: #fff;
+	padding: 5px;
+	margin-top: 5px;
+	transition: 1s;
+	margin-bottom: 0;
+}
+footer:hover{
+	color: #000;
+}

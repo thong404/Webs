@@ -1,0 +1,240 @@
+import time
+import serial
+import RPi.GPIO as GPIO
+import threading
+import urllib3
+import mysql.connector
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(2, GPIO.OUT)  #Quat Suoi
+GPIO.setup(3, GPIO.OUT)  #Bom Nuoc
+GPIO.setup(4, GPIO.OUT)  #Den sang
+GPIO.setup(17, GPIO.OUT) #chua thiet lap
+
+#Khai bao cac chuoi du lieu
+s = ""
+s1 = ""
+s2 = ""
+
+#ten node dang xet
+node = 0
+
+#Khai bao cac bien trong xu ly chuoi
+hot = l = i = bd = k = kt =0 
+
+#khai bao bien luu trang thai cac node on/off
+trangthai = [0,0,0,0,0] #chi tinh tu 1 - 5 tuong ung 4node
+
+#Khai bao bien ghi nhan loi o cac node
+loi = [0,0,0,0,0]
+
+#Khai bao cac gia tri thong so
+n = nd = da = dat = ahs = 0
+
+node1 = [0,0,0,0] #Du lieu Node1
+node2 = [0,0,0,0] #Du lieu Node2
+node3 = [0,0,0,0] #Du lieu Node3
+node4 = [0,0,0,0] #Du lieu Node4
+
+tl1 = [0,0,0,0,0,0] #Thiet lap Node1 #Ndmin Ndmax Datmin Datmax Asmin Asmax
+tl2 = [0,0,0,0,0,0] #Thiet lap Node2
+tl3 = [0,0,0,0,0,0] #Thiet lap Node3
+tl4 = [0,0,0,0,0,0] #Thiet lap Node4
+
+tl1w = [0,0,0,0,0,0] #Thiet lap Node1 #Ndmin Ndmax Datmin Datmax Asmin Asmax
+tl2w = [0,0,0,0,0,0] #Thiet lap Node2
+tl3w = [0,0,0,0,0,0] #Thiet lap Node3
+tl4w = [0,0,0,0,0,0] #Thiet lap Node4
+tlw = [0,0,0,0,0,0]
+#---------------------------------------
+mydb = mysql.connector.connect(
+  host="localhost",
+  database="second_db",
+  user="thong7991",
+  passwd="raspberry"
+)
+mycursor = '';
+myresult = '';
+#---------------------------------------
+ser = serial.Serial(
+    port = '/dev/ttyAMA0',
+    baudrate = 38400,
+    parity = serial.PARITY_NONE,
+    stopbits = serial.STOPBITS_ONE,
+    bytesize = serial.EIGHTBITS,
+    timeout = 1
+)
+#---------------------------------------
+def convert(list):
+    s = [str(i) for i in list]
+    res = "".join(s)
+    return(res)
+#---------------------------------------
+def docweb():
+    global mycursor
+    global myresult
+    global tl1, tl2, tl3, tl4
+    global tl1w, tl2w, tl3w, tl4w
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT * FROM node_1")
+    myresult = mycursor.fetchone()
+    tlw = myresult[1:9]
+    tl1w = [tlw[1], tlw[0], tlw[7], tlw[6], tlw[3], tlw[2]]
+    print (tl1w)
+	#ghi gia tri thiet lap o web vao cac mang thiet lap
+    if tl1 != tl1w:
+        tl1 = tl1w
+        s2 = 'c' + '1' + convert(tl1) + 'd'
+        ser.write(s2)
+        ser.flush()
+    if tl2 != tl2w:
+        tl2 = tl2w
+        s2 = 'c' + '2' + convert(tl2) + 'd'
+        ser.write(s2)
+        ser.flush()
+    if tl3 != tl3w:
+        tl3 = tl3w
+        s2 = 'c' + '3' + convert(tl3) + 'd'
+        ser.write(s2)
+        ser.flush()
+    if tl4 != tl4w:
+        tl4 = tl4w
+        s2 = 'c' + '4' + convert(tl4) + 'd'
+        ser.write(s2)
+        ser.flush()
+#-------------------------------------
+def dongco(): #Chi ho tro o node1 
+	#Neu nhiet do node1 < nhiet do min
+	if node1[0] < tl1[0] and trangthai[1] != 0:
+		GPIO.output(2, GPIO.HIGH)  #Bat quat Suoi
+	#Neu nhiet do node 1 > nhiet do max
+	if node1[0] > tl1[1] and trangthai[1] != 0: 
+		GPIO.output(2, GPIO.LOW)   #Tat quat suoi
+	#Neu do am dat node1 < do am dat min	
+	if node1[2] < tl1[2] and trangthai[1] != 0: 
+		GPIO.output(3, GPIO.HIGH)  #Bat may bom nuoc
+	#Neu do am dat node1 > do am dat max
+	if node1[2] > tl1[3] and trangthai[1] != 0: 
+		GPIO.output(3, GPIO.LOW)  #Tat may bom nuoc
+	#Neu anh sang node1 < anh sang min
+	if node1[3] < tl1[4] and trangthai[1] != 0:
+		GPIO.output(4, GPIO.HIGH)  #Bat den chieu sang
+	#Neu anh sang node1 > anh sang max
+	if node1[3] > tl1[5] and trangthai[1] != 0: 
+		GPIO.output(4, GPIO.LOW)  #Tat den chieu sang
+#-------------------------------------
+def tachGiaTri():
+    global loi, node1, node2, node3, node4
+    print ("------------------------------------")
+    n = s1[0]
+    print ("Thong tin khu vuc {:d}:" .format(int(n)))
+    nd = s1[1 : 3]
+    print ("Nhiet do: {:d}" .format(int(nd)))
+    da = s1[3 : 5]
+    print ("Do am: {:d}" .format(int(da)))
+    dat = s1[5 : 7]
+    print ("Do am dat: {:d}" .format(int(dat)))
+    ahs = s1[7 : 9]
+    print ("Anh sang: {:d}" .format(int(ahs)))
+    print(n)
+    if int(n) == 1:
+	loi[1] = 0
+        node1 = [int(nd), int(da), int(dat), int(ahs)]
+    if int(n) == 2:
+	loi[2] = 0
+	node2 = [int(nd), int(da), int(dat), int(ahs)]
+    if int(n) == 3:
+	loi[3] = 0
+	node3 = [int(nd), int(da), int(dat), int(ahs)]
+    if int(n) == 4:
+	loi[4] = 0
+	node4 = [int(nd), int(da), int(dat), int(ahs)]
+    hienweb()
+#---------------------------------------
+def hienweb():
+	global node1, node2, node3, node4
+	threading.Timer(10,hienweb).start()
+	http = urllib3.PoolManager()
+	http.request('GET',"http://localhost/add_data.php?temp1="+str(node1[0])+"&humi1="+str(node1[1])+"&shumi1="+str(node1[2])+"&lux1="+str(node1[3])+
+        "&temp2="+str(node2[0])+"&humi2="+str(node2[1])+"&shumi2="+str(node2[2])+"&lux2="+str(node2[3])+
+        "&temp3="+str(node3[0])+"&humi3="+str(node3[1])+"&shumi3="+str(node3[2])+"&lux3="+str(node3[3])+
+        "&temp4="+str(node4[0])+"&humi4="+str(node4[1])+"&shumi4="+str(node4[2])+"&lux4="+str(node4[3])).read()
+#---------------------------------------
+def ghinhanloi():
+    global node, loi, node1, node2, node3, node4
+    loi[node] += 1
+    if loi[node] == 3:
+        print("Node {:d} mat ket noi" .format(int(node)))
+        trangthai[node] = 0 #Bat bao loi o node nay
+        if node == 1:
+            node1 = [0,0,0,0]
+    	if node == 2:
+    	    node2 = [0,0,0,0]
+    	if node == 3:
+    	    node3 = [0,0,0,0]
+    	if node == 4:
+    	    node4 = [0,0,0,0]
+    	hienweb()
+        loi[node] = 0
+    elif loi[node] < 3:
+        print("so loi hien tai cua node {:d}" .format(int(node)))
+        print(loi[node])
+        hienweb()
+#---------------------------------------
+while True:
+    for node in range(1,5):
+        docweb()
+        dongco()
+        #Gui yeu cau thong bao data toi cac node
+        s2 = 'y' + str(node) + 'c' + '\n'
+        ser.write(s2)
+        ser.flush()
+        s2 = ""
+        time.sleep(3)
+        #Doi 3 giay nhan uart bat dau doc du lieu
+        data = ser.readline()
+        #s = data.decode()               # decode s
+        s = data.rstrip()                  # cut "\r\n" at last of string
+        print(s)
+        if s == "":
+            ghinhanloi()
+        else:
+            print("Tach Gia tri")
+            hot = s.count("h")
+            if hot != 0:
+                for i in range(hot):
+                    bd = s.find("h")
+                    k = s.count("t")
+                    if k !=0:
+                        kt = s.find ("t")
+                        s1 = s[bd + 1: kt]
+                        s  = s[: bd] + s[kt + 1:]
+                        if len(s1) == 9 and s1.isdigit() == 1:
+                            tachGiaTri()
+                            #gui tin da nhan duoc bao dong
+                            s2 = 'd' + str(node) + 'n' + '\n'
+                            ser.write(s2)
+                            ser.flush()
+                            s2 = ""
+                            s1 = ""
+            l = s.count("s")
+            if l !=0:
+                for i in range(l):
+                    bd = s.find("s")
+                    k = s.count("e")
+                    if k !=0:
+                        kt = s.find ("e")
+                        s1 = s[bd + 1: kt]
+                        s = s [kt + 1:]
+                        if len(s1) == 9 and s1.isdigit() == 1:
+			    trangthai[node] = 1
+                            tachGiaTri()
+                            s1 = ""
+            else:
+                ghinhanloi()
+            s = ""
+
+
+
+
+

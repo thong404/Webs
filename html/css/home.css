@@ -1,0 +1,258 @@
+/*  "When it come to persuation 
+		if you argument you are losing!".
+	"Less is more".
+	"Simple is perfect".
+	"And nothing imposible".
+	I'm Thong and i always deeply believe in these quote.
+*/
+body{
+	font: 15px/1.5 Arial, Helvatica, sans-serif;
+	padding: 0;
+	margin: 0;	
+	background-color: rgb(90,90,90);
+}
+	/*Global*/
+.container{
+	width: 90%;
+	margin: auto;
+}
+ul{
+	margin: 0;
+	padding: 0;
+}
+	/*HEADER*/
+header{
+	background-color: #35424a;
+	padding-top: 30px;
+	min-height: 70px;
+	border-bottom: #e8491d 3px solid;
+}
+header a{
+	color: #fff;
+	text-decoration: none;
+	font-size: 16px;
+}
+header ul{
+	display: flex;
+	justify-content: space-between;
+	list-style: none;
+	margin-top: 10px;
+}
+header .current a{	
+	color: #e8491d;
+}
+header a:hover{
+	color: #e8491d;
+	font-weight: bold;
+}
+.list{
+	position: relative;
+}
+.node_list{
+	position: absolute;
+	display: none;
+	z-index: 100;
+	background: rgba(0, 0, 0, 0.5);   
+	color: rgba(255,255,255, 0.5);
+	border-radius: 10px;
+}
+
+.node_list a{
+	display: block;
+	width: 150px;
+	text-align: center;
+	padding: 5px;
+	color: white;
+}	
+.list:hover .node_list{
+	display: block;
+}
+.node_list a:hover{
+	color: rgb(0,191,255);
+	transition: 0.5s;
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;
+}
+@media(max-width: 450px){
+.node_list a{
+	text-align: center;
+	width: 85px;
+}	
+}
+
+.key{
+	font-size: 20px;
+	transition: 0.3s;
+}
+.menu-item{
+	transform: scale(1);
+	transition: 0.3s;
+	display: block;
+}
+.menu-item.hide-item
+{
+	transform: scale(0);
+}
+ .fa.fa-home{
+	font-size: 30px;
+}
+.search_box{
+	position: absolute;
+	right: 15%;
+	width: 40%;
+	visibility: hidden;
+	opacity: 0;
+}
+.search_box.active
+{
+	opacity: 1;
+	visibility: visible;
+	transition-delay: 0.3s;
+	transition: 0.7s;
+	border-radius: 10px;
+	padding: 1px 0;
+}
+.container input[type=text] {
+	padding-left: 20px;
+	font-size: 16px;
+}
+
+
+	/*Showcase*/
+
+#showcase{
+	min-height: 300px;
+	background: url('../image/img.jpg') no-repeat;
+	background-position: center;
+	background-size: cover;
+	position: relative;
+	color: #fff;
+	text-align: center;
+}
+#showcase h1{
+	font-size: 40px;
+	margin-top: 0;
+	transition: 1s;
+	padding-top: 50px;
+}
+#showcase p{
+	font-size: 20px;
+	margin-top: 10px;
+	transition: 1s;
+}
+#showcase h1:hover{
+	color: #000;
+}
+#showcase p:hover{
+	color: #000;
+	font-weight: bold;
+}
+
+
+
+	/*Boxes*/
+
+
+@media(min-width: 375px){
+	.boxes{
+	background-color: #fff;
+}
+	.container_boxes{
+	display: flex;
+	width:90%;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	margin: 0 auto;
+
+}
+.container_boxes .box{
+	border: 1px #ccc solid;
+	margin-top: 40px;
+	flex-basis: 90%;
+	text-align: center;
+	border-radius: 15px;
+	overflow: hidden;
+	position: relative;
+	border: 1.1px solid black;
+	background-color: #fff;  /*change*/
+
+}
+.container_boxes_1{
+	display: flex;
+	width: 95%;
+	margin: auto;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.temp, .lux, .humidity, .soil_humidity{
+	border: 1px #ccc solid;
+	flex-basis: 45%;
+	text-align: center;
+	margin: 4px 0;
+	border-radius: 10px;
+	border: 1.1px solid black;
+	background-color: #a0a0a0;
+}
+.icon{
+	font-size: 25px;
+	color: #fff;
+	background: #000;
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	margin: 2px auto;
+	border-radius: 50%;
+	transition: 0.5s;
+}
+.icon_1{
+	text-decoration: none;
+	color: white;
+}
+.container_boxes .box:hover{
+	border: 5px #000 solid;
+	background-color: rgb(255,0,0);
+	transition: 1s;
+}
+
+.temp:hover, .lux:hover, .humidity:hover, .soil_humidity:hover{
+	background-color:  #35424a;
+	transition: 0.5s;
+	color: white;
+	border: 3px #000 solid;
+}
+.icon:hover{
+	border: 2px #000 solid;
+	background-color: rgb(0,255,0);
+}
+
+@media(min-width: 768px){
+.container_boxes .box{
+	flex-basis: 45%;
+}
+}
+
+@media(min-width: 1280px){
+
+.container_boxes .box{
+	flex-basis: 40%;
+	border-radius: 30px
+}
+.container_boxes_1{
+	width: 80%;
+}
+.temp, .lux, .humidity, .soil_humidity{
+	flex-basis: 40%;
+	border-radius: 40px
+}
+}
+footer{
+	text-align: center;
+	background-color: rgb(255,0,0);
+	color: #fff;
+	padding: 5px;
+	margin-top: 5px;
+	transition: 1s;
+}
+footer:hover{
+	color: #000;
+}

@@ -1,0 +1,267 @@
+body{
+	font: 15px/1.5 Arial, Helvatica, sans-serif;
+	padding: 0;
+	margin: 0;	
+	background-color: rgb(90,90,90);
+}
+	/*Global*/
+.container{
+	width: 90%;
+	margin: auto;
+}
+.container_node{
+	width: 90%;
+	margin: auto;
+	overflow: hidden;
+}
+ul{
+	margin: 0;
+	padding: 0;
+}
+
+
+
+
+	/*HEADER*/
+header{
+	background-color: #35424a;
+	padding-top: 30px;
+	min-height: 70px;
+	border-bottom: #e8491d 3px solid;
+}
+header a{
+	color: #fff;
+	text-decoration: none;
+	font-size: 16px;
+}
+header ul{
+	display: flex;
+	justify-content: space-between;
+	list-style: none;
+	margin-top: 10px;
+}
+header .current a{	
+	color: #e8491d;
+}
+header a:hover{
+	color: #e8491d;
+	font-weight: bold;
+}
+.list{
+	position: relative;
+}
+.node_list{
+	position: absolute;
+	display: none;
+	z-index: 100;
+	background: rgba(0, 0, 0, 0.5);   
+	color: rgba(255,255,255, 0.5);
+	border-radius: 10px;
+}
+
+.node_list a{
+	display: block;
+	width: 150px;
+	text-align: center;
+	padding: 5px;
+	color: white;
+}	
+.list:hover .node_list{
+	display: block;
+}
+.node_list a:hover{
+	color: rgb(0,191,255);
+	transition: 0.5s;
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;
+}
+@media(max-width: 450px){
+.node_list a{
+	text-align: center;
+	width: 85px;
+}	
+}
+.key{
+	font-size: 20px;
+	transition: 0.3s;
+}
+.menu-item{
+	transform: scale(1);
+	transition: 0.3s;
+	display: block;
+}
+.menu-item.hide-item
+{
+	transform: scale(0);
+}
+ .fa.fa-home{
+	font-size: 30px;
+}
+.search_box{
+	position: absolute;
+	right: 15%;
+	width: 40%;
+	visibility: hidden;
+	opacity: 0;
+}
+.search_box:focus{
+	background-color: #ccc;
+}
+.search_box.active
+{
+	opacity: 1;
+	visibility: visible;
+	transition-delay: 0.3s;
+	transition: 0.7s;
+	border-radius: 10px;
+	padding: 1px 0;
+}
+.container input[type=text] {
+	padding-left: 20px;
+	font-size: 16px;
+}
+
+/*Node*/
+
+#edit{
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	height: auto;
+	height: 100%;
+	min-height: 550px;
+}
+@media(min-height: 730px){
+	#edit{
+		min-height: 600px;
+	}
+}
+@media(min-height: 750px){
+	#edit{
+		min-height: 610px;
+	}
+}
+@media(min-height: 768px){
+	#edit{
+		min-height: 650px;
+	}
+}
+@media(min-height: 800px){
+	#edit{
+		min-height: 656px;
+	}
+}
+@media(min-height: 1024px){
+	#edit{
+		min-height: 890px;
+	}
+}
+@media(min-height: 1366px){
+	#edit{
+		min-height: 1235px;
+	}
+}
+
+.open_button{
+	color: black;
+	background-color: #e8491d;
+	width: 200px;
+	margin: 20px;
+	padding: 10px;
+	font-size: 20px;
+	border-radius: 20px;
+	border: 1.1px solid black;
+}
+.open_button:hover{
+	border: 5px #000 solid;
+	background-color: rgb(255,0,0);
+	transition: 1s;
+	font-weight: bold;
+	color: white;
+	border-radius: 25px;
+}
+.node{
+	display: none;
+	border: 1.1px solid black;
+	z-index: 10;
+	border-radius: 10px;
+	text-align: center;
+
+}
+.node:hover{
+	background: rgba(0, 0, 0, 0.5);
+	border: 3px solid black;
+	transition: 1.5s;
+	border-radius: 20px;
+	color: rgba(255,255,255, 0.5);
+}
+.form_edit h3{
+	text-align: center;
+}
+.form_edit b{
+	margin-right: 15px;
+
+}
+.form_edit input[type=number]{
+	border-radius: 5px;
+	margin-bottom: 10px;
+	margin-right: 15px;
+	font-size:15px;
+	width: 60px;
+	height: 20px;
+	text-align: center;
+}
+.form_edit input[type=number]:focus{
+  background-color: #ddd;
+  outline: none;
+}
+.button_close{
+	margin-bottom: 10px;
+}
+.button_submit:hover{
+	font-weight: bold;
+	background-color: rgb(255,0,0);
+	font-size: 15px;
+	transition: 0.7s;
+}
+.button_close:hover{
+	font-weight: bold;
+	background-color: rgb(255,0,0);
+	font-size: 15px;
+	transition: 0.7s;
+}
+@media(min-width: 768px){
+	#edit{
+		text-align: left;
+	}
+	.container_node{
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	}
+	#node{
+		display: inline-block;
+		text-align: center;
+		width: 40%;
+
+
+	}
+	.node{
+		width: 100%;
+		margin: auto;
+
+	}
+}
+footer{
+	text-align: center;
+	background-color: rgb(255,0,0);
+	color: #fff;
+	padding: 1px;
+	margin-top: 0;
+	transition: 1s;
+	margin-bottom: 0;
+}
+footer:hover{
+	color: #000;
+}
+
